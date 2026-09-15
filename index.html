@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <script async="async" data-cfasync="false" src="https://pl31350738.profitableratecpmnetwork.com/d5686b0e70977f0ba3970348be776446/invoke.js"></script>
-<div id="container-d5686b0e70977f0ba3970348be776446"></div>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6644825507405548" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -135,6 +133,24 @@
   .refer-stat-num{font-family:'Anton',sans-serif; font-size:28px; color:var(--accent);}
   .refer-stat-lbl{color:var(--muted); font-size:11px; margin-top:2px;}
   .refer-stat-divider{width:1px; height:34px; background:var(--line);}
+
+  /* SERVICE CENTER */
+  .service-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .service-item{background:var(--surface); color:var(--text); padding:18px 10px; display:flex; flex-direction:column; align-items:center; gap:8px; font-size:12px; font-weight:600; text-align:center;}
+  .service-item:hover{background:var(--surface-raised); color:var(--accent);}
+  .service-ic{font-size:22px;}
+  @media(max-width:480px){.service-grid{grid-template-columns:repeat(3,1fr);}}
+
+  /* FLOATING HELP BUBBLE */
+  .help-bubble{
+    position:fixed; width:54px; height:54px; border-radius:50%;
+    background:var(--accent); color:#101015; font-size:22px;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 18px rgba(0,0,0,0.4);
+    z-index:90; cursor:grab; touch-action:none;
+    right:18px; bottom:90px;
+  }
+  .help-bubble:active{cursor:grabbing;}
   .profile-avatar{width:52px; height:52px; border-radius:50%; background:var(--accent); color:#101015; font-family:'Anton',sans-serif; font-size:20px; display:flex; align-items:center; justify-content:center; overflow:hidden;}
   .profile-avatar img{width:100%; height:100%; object-fit:cover;}
   .order-row{background:var(--surface); border:1px solid var(--line); padding:14px 16px; margin-bottom:10px; font-size:13.5px;}
@@ -204,6 +220,7 @@
       <button class="nav-link" data-tab="home" onclick="goTab('home')">Home</button>
       <button class="nav-link" data-tab="shop" onclick="goTab('shop')">Shop</button>
       <button class="nav-link" data-tab="chat" onclick="goTab('chat')">Chat</button>
+      <button class="nav-link" data-tab="refer" onclick="goTab('refer')">🎁 Refer</button>
       <button class="nav-link" onclick="goView('about')">About</button>
       <button class="nav-link" onclick="goView('help')">Help</button>
       <button class="nav-link" onclick="goView('contact')">Contact</button>
@@ -233,6 +250,7 @@
   <button class="drawer-item" onclick="closeDrawer(); goTab('home');">🏠 Home</button>
   <button class="drawer-item" onclick="closeDrawer(); goTab('shop');">🛍️ Shop</button>
   <button class="drawer-item" onclick="closeDrawer(); goTab('chat');">💬 Chat</button>
+  <button class="drawer-item" onclick="closeDrawer(); goTab('refer');">🎁 Refer & Earn</button>
   <button class="drawer-item" onclick="closeDrawer(); goTab('profile');">👤 Profile</button>
   <div style="border-top:1px solid var(--line); margin:8px 0;"></div>
   <button class="drawer-item" onclick="goView('about')">About</button>
@@ -259,6 +277,18 @@
       <div><div class="stat-num">12</div><div class="stat-label">Coaches</div></div>
       <div><div class="stat-num">9</div><div class="stat-label">Years open</div></div>
     </div>
+
+    <!-- Ad: Alpha -->
+    <div style="margin:24px 0; text-align:center;">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-6644825507405548"
+           data-ad-slot="5843096372"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
     <section>
       <div class="section-head"><h2>Exercises</h2><p style="color:var(--muted); font-size:13.5px;">Watch the video, learn the form, then hit the floor.</p></div>
       <div class="class-grid" id="classGrid"></div>
@@ -314,6 +344,31 @@
       </div>
       <button class="btn btn-outline btn-small" onclick="signOut()" style="margin-bottom:24px;">Sign out</button>
 
+      <h3 style="font-size:16px; margin:24px 0 12px; text-transform:none;">Your orders</h3>
+      <div id="ordersList"></div>
+
+      <h3 style="font-size:16px; margin:28px 0 12px; text-transform:none;">Service Center</h3>
+      <div class="service-grid">
+        <button class="service-item" onclick="openSettingsModal()"><span class="service-ic">⚙️</span>Settings</button>
+        <button class="service-item" onclick="goView('contact')"><span class="service-ic">📝</span>Feedback</button>
+        <button class="service-item" onclick="openAnnouncementModal()"><span class="service-ic">📣</span>Announcement</button>
+        <button class="service-item" onclick="goView('contact')"><span class="service-ic">🎧</span>Customer Service</button>
+        <button class="service-item" onclick="goView('help')"><span class="service-ic">📖</span>Beginner's Guide</button>
+        <button class="service-item" onclick="goView('about')"><span class="service-ic">ℹ️</span>About us</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REFER & EARN -->
+<div class="view" id="view-refer">
+  <div class="wrap">
+    <h2 style="font-size:26px; margin-bottom:20px;">Refer & Earn</h2>
+    <div id="referSignedOut" style="display:none;">
+      <p style="color:var(--muted); margin-bottom:16px;">Sign in to get your referral link and start earning points.</p>
+      <button class="btn btn-solid" onclick="signInWithGoogle()">Sign in with Google</button>
+    </div>
+    <div id="referSignedIn" style="display:none;">
       <div class="refer-hero">
         <div class="refer-hero-icon">🎁</div>
         <div class="refer-hero-title">Earn <span id="pointsPerReferralLabel">50</span> points<br>for every friend</div>
@@ -330,12 +385,37 @@
         </div>
         <button class="btn btn-outline btn-small" style="width:100%; margin-top:10px;" onclick="openWithdrawForm()">Request withdrawal</button>
       </div>
-
-      <h3 style="font-size:16px; margin:24px 0 12px; text-transform:none;">Your orders</h3>
-      <div id="ordersList"></div>
+      <h3 style="font-size:16px; margin:20px 0 12px; text-transform:none;">Your referral history</h3>
+      <div id="referralHistoryList"></div>
     </div>
   </div>
 </div>
+
+<!-- SETTINGS MODAL -->
+<div class="modal-backdrop" id="settingsModal">
+  <div class="modal">
+    <h3>Settings</h3>
+    <p class="hint">Signed in as <strong id="settingsEmailLabel"></strong></p>
+    <div class="modal-actions">
+      <button class="btn btn-outline btn-small" onclick="closeSettingsModal()">Close</button>
+      <button class="btn btn-solid btn-small" onclick="closeSettingsModal(); signOut();">Sign out</button>
+    </div>
+  </div>
+</div>
+
+<!-- ANNOUNCEMENT MODAL -->
+<div class="modal-backdrop" id="announcementModal">
+  <div class="modal">
+    <h3>Announcements</h3>
+    <p class="hint" id="announcementBody">No announcements right now — check back soon.</p>
+    <div class="modal-actions">
+      <button class="btn btn-solid btn-small" onclick="closeAnnouncementModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- FLOATING HELP BUBBLE (movable) -->
+<button id="helpBubble" class="help-bubble" aria-label="Help">💬</button>
 
 <!-- WITHDRAW MODAL -->
 <div class="modal-backdrop" id="withdrawModal">
@@ -389,6 +469,7 @@
       <button onclick="goTab('home')">Home</button>
       <button onclick="goTab('shop')">Shop</button>
       <button onclick="goTab('chat')">Chat</button>
+      <button onclick="goTab('refer')">Refer & Earn</button>
       <button onclick="goTab('profile')">Profile</button>
       <button onclick="goView('about')">About</button>
       <button onclick="goView('help')">Help</button>
@@ -635,12 +716,27 @@ async function maybeClaimReferral(){
 async function renderReferralInfo(){
   if(!currentUser) return;
   const { data: profile } = await sb.from('profiles').select('referral_code, points').eq('id', currentUser.id).single();
-  const { count } = await sb.from('referrals').select('*', {count:'exact', head:true}).eq('referrer_id', currentUser.id);
+  const { data: myReferrals, count } = await sb.from('referrals').select('*', {count:'exact'}).eq('referrer_id', currentUser.id).order('created_at', {ascending:false});
   const code = profile?.referral_code || '';
   const link = `${window.location.origin}${window.location.pathname}?ref=${code}`;
   document.getElementById('referralLinkBox').value = link;
   document.getElementById('pointsBalance').textContent = profile?.points || 0;
   document.getElementById('referralCount').textContent = count || 0;
+
+  const historyEl = document.getElementById('referralHistoryList');
+  if(!historyEl) return;
+  if(!myReferrals || !myReferrals.length){
+    historyEl.innerHTML = `<p style="color:var(--muted); font-size:13.5px;">No referrals yet — share your link above to start earning.</p>`;
+    return;
+  }
+  const referredIds = myReferrals.map(r => r.referred_id);
+  const { data: referredProfiles } = await sb.from('profiles').select('id, full_name, email').in('id', referredIds);
+  const profileMap = {};
+  (referredProfiles||[]).forEach(p => profileMap[p.id] = p);
+  historyEl.innerHTML = myReferrals.map(r => {
+    const p = profileMap[r.referred_id];
+    return `<div class="order-row"><strong>${p?.full_name || p?.email || 'A new member'}</strong> joined <span class="status">+${r.points_awarded} pts</span><br><span style="color:var(--muted); font-size:12px;">${new Date(r.created_at).toLocaleString()}</span></div>`;
+  }).join('');
 }
 function copyReferralLink(){
   const box = document.getElementById('referralLinkBox');
@@ -657,6 +753,51 @@ function shareReferralLink(){
     window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + link)}`, '_blank');
   }
 }
+
+function openSettingsModal(){
+  document.getElementById('settingsEmailLabel').textContent = currentUser ? currentUser.email : 'Not signed in';
+  document.getElementById('settingsModal').classList.add('open');
+}
+function closeSettingsModal(){ document.getElementById('settingsModal').classList.remove('open'); }
+function openAnnouncementModal(){ document.getElementById('announcementModal').classList.add('open'); }
+function closeAnnouncementModal(){ document.getElementById('announcementModal').classList.remove('open'); }
+
+/* ---------------- FLOATING DRAGGABLE HELP BUBBLE ---------------- */
+(function initHelpBubble(){
+  const bubble = document.getElementById('helpBubble');
+  let dragging = false, moved = false, startX, startY, startRight, startBottom;
+
+  function onDown(e){
+    dragging = true; moved = false;
+    const point = e.touches ? e.touches[0] : e;
+    startX = point.clientX; startY = point.clientY;
+    const rect = bubble.getBoundingClientRect();
+    startRight = window.innerWidth - rect.right;
+    startBottom = window.innerHeight - rect.bottom;
+  }
+  function onMove(e){
+    if(!dragging) return;
+    const point = e.touches ? e.touches[0] : e;
+    const dx = point.clientX - startX, dy = point.clientY - startY;
+    if(Math.abs(dx) > 5 || Math.abs(dy) > 5) moved = true;
+    let newRight = startRight - dx, newBottom = startBottom - dy;
+    newRight = Math.max(4, Math.min(newRight, window.innerWidth - bubble.offsetWidth - 4));
+    newBottom = Math.max(4, Math.min(newBottom, window.innerHeight - bubble.offsetHeight - 4));
+    bubble.style.right = newRight + 'px';
+    bubble.style.bottom = newBottom + 'px';
+  }
+  function onUp(){
+    if(!dragging) return;
+    dragging = false;
+    if(!moved) goView('contact'); // treat as a tap, not a drag
+  }
+  bubble.addEventListener('mousedown', onDown);
+  bubble.addEventListener('touchstart', onDown, {passive:true});
+  window.addEventListener('mousemove', onMove);
+  window.addEventListener('touchmove', onMove, {passive:true});
+  window.addEventListener('mouseup', onUp);
+  window.addEventListener('touchend', onUp);
+})();
 
 function openWithdrawForm(){ document.getElementById('withdrawModal').classList.add('open'); }
 function closeWithdrawForm(){ document.getElementById('withdrawModal').classList.remove('open'); }
@@ -683,6 +824,8 @@ function renderAuthUI(){
     drawerArea.innerHTML = `<div style="font-size:13px; color:var(--muted); margin-bottom:8px;">Signed in as<br><strong style="color:var(--text);">${currentUser.email}</strong></div><button class="btn btn-outline btn-small" style="width:100%;" onclick="signOut()">Sign out</button>`;
     document.getElementById('profileSignedOut').style.display = 'none';
     document.getElementById('profileSignedIn').style.display = 'block';
+    document.getElementById('referSignedOut').style.display = 'none';
+    document.getElementById('referSignedIn').style.display = 'block';
     document.getElementById('profileName').textContent = currentUser.user_metadata.full_name || currentUser.email;
     document.getElementById('profileEmail').textContent = currentUser.email;
     const avatarUrl = currentUser.user_metadata.avatar_url;
@@ -691,6 +834,8 @@ function renderAuthUI(){
     drawerArea.innerHTML = `<button class="btn btn-solid btn-small" style="width:100%;" onclick="signInWithGoogle()">Sign in with Google</button>`;
     document.getElementById('profileSignedOut').style.display = 'block';
     document.getElementById('profileSignedIn').style.display = 'none';
+    document.getElementById('referSignedOut').style.display = 'block';
+    document.getElementById('referSignedIn').style.display = 'none';
   }
 }
 
