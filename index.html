@@ -5,7 +5,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BEAST ZEN — Gym & Shop</title> 
-  <link rel="manifest" href="/Iron-form/manifest.json">
+  <button id="installBtn" style="display:none; position:fixed; bottom:20px; right:20px; z-index:999; background:#C9A227; color:#0f0f0f; border:none; padding:12px 20px; border-radius:8px; font-weight:bold; cursor:pointer;">
+  📲 Download App
+</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/Iron-form/sw.js');
+}
+
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('installBtn').style.display = 'block';
+});
+
+document.getElementById('installBtn').addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  document.getElementById('installBtn').style.display = 'none';
+});
+
+window.addEventListener('appinstalled', () => {
+  document.getElementById('installBtn').style.display = 'none';
+});
+</script>
 <meta name="theme-color" content="#0f0f0f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
